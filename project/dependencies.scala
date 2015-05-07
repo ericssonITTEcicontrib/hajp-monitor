@@ -28,7 +28,7 @@ object Dependencies {
   )
 
   val hajpSpecific = Seq(
-    "com.ericsson.jenkinsci.hajp" % "hajp-common" % "1.0.7" % "provided")
+    "com.ericsson.jenkinsci.hajp" % "hajp-common" % "1.0.10")
 
   val metrics = Seq(
     "org.fusesource" % "sigar" % "1.6.4"
