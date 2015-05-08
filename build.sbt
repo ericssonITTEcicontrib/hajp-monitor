@@ -55,6 +55,20 @@ publishTo := {
     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
+ReleaseKeys.releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies
+  /*  inquireVersions
+    runClean,
+    runTest,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    ReleaseStep(action = Command.process("publishSigned", _)),
+    //setNextVersion,
+    //commitNextVersion,
+    //ReleaseStep(action = Command.process("sonatypeReleaseAll", _)),
+    //pushChanges*/
+)
 
 releaseSettings
 
@@ -74,21 +88,6 @@ val distHackSettings = Seq[Setting[_]] (
     val packageName = "%s-%s" format(id, version)
     targetDir / (packageName + ".zip")
   }) ++ Seq(addArtifact(artifact in distHack, distHack).settings: _*)
-
-ReleaseKeys.releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  ReleaseStep(action = Command.process("publishSigned", _)),
-  setNextVersion,
-  commitNextVersion,
-  ReleaseStep(action = Command.process("sonatypeReleaseAll", _)),
-  pushChanges
-)
 
 seq(distHackSettings: _*)
 
