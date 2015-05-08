@@ -50,6 +50,8 @@ publishTo := {
     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
+
 releaseSettings
 
 // This block ensures distribution zip is actually packed in publish
