@@ -10,12 +10,6 @@ lazy val `hajp-monitor` = (project in file(".")).enablePlugins(PlayScala)
     pipelineStages := Seq(digest, gzip)
   )
 
-// default credentials needed to resolve dependencies for compilation
-// in order to publish, you require credentials that have write access.
-// These can be placed in ~/.sbt/0.13/plugins/credentials.sbt
-credentials in ThisBuild += Credentials("Artifactory Realm", "arm.mo.ca.am.ericsson.se", "artread", "\\{DESede\\}YNtyA/TMlbuQjz/BlYj9Pw==")
-
-resolvers in ThisBuild ++= Seq("Artifactory Staging ITTE" at "https://arm.mo.ca.am.ericsson.se/artifactory/proj-jnkserv-staging-local/")
 
 publishTo := {
   val artifactoryURL = "https://arm.mo.ca.am.ericsson.se/artifactory/"
