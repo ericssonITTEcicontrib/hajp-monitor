@@ -10,13 +10,44 @@ lazy val `hajp-monitor` = (project in file(".")).enablePlugins(PlayScala)
     pipelineStages := Seq(digest, gzip)
   )
 
+publishMavenStyle := true
+
+publishArtifact in Test := false
+
+pomIncludeRepository := { _ => false }
+
+pomExtra := (
+  <url>https://github.com/ericssonITTEcicontrib/hajp-monitor</url>
+  <licenses>
+      <license>
+        <name>MIT License</name>
+        <url>http://www.opensource.org/licenses/mit-license.php</url>
+      </license>
+  </licenses>
+   <developers>
+      <developer>
+        <name>Daniel Yinanc</name>
+        <organization>Ericsson</organization>
+        <organizationUrl>http://www.ericsson.com</organizationUrl>
+      </developer>
+      <developer>
+        <name>Scott Hebert</name>
+        <organization>Ericsson</organization>
+        <organizationUrl>http://www.ericsson.com</organizationUrl>
+      </developer>
+    </developers>
+    <scm>
+      <connection>scm:git:git@github.com:ericssonITTEcicontrib/hajp-monitor.git</connection>
+      <developerConnection>scm:git:git@github.com:ericssonITTEcicontrib/hajp-monitor.git</developerConnection>
+      <url>git@github.com:ericssonITTEcicontrib/hajp-monitor.git</url>
+    </scm>)
 
 publishTo := {
-  val artifactoryURL = "https://arm.mo.ca.am.ericsson.se/artifactory/"
+  val nexus = "https://oss.sonatype.org/"
   if (isSnapshot.value)
-    Some("snapshots" at artifactoryURL + "proj-jnkserv-dev-local")
+    Some("snapshots" at nexus + "content/repositories/snapshots")
   else
-    Some("releases"  at artifactoryURL + "proj-jnkserv-staging-local")
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
 releaseSettings
