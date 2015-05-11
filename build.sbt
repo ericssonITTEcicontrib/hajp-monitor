@@ -10,7 +10,7 @@ organization := "com.ericsson.jenkinsci.hajp"
 
 name := "hajp-monitor"
 
-scalaVersion := "2.11.5"
+scalaVersion := "2.11.6"
 
 useGpg := true
 
