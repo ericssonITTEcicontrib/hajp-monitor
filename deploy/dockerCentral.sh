@@ -1,8 +1,7 @@
 #!/bin/bash -e
 
-PROJECT=proj_hajp
-REGISTRY=armdocker.rnd.ericsson.se
-SUBPROJECT=monitor
+PROJECT=hajp-monitor
+REGISTRY=docker.io/ericssonitte
 VERSIONSTR=$(head -n 1 ../version.sbt)
 SNAPSHOTBEGIN=`echo $VERSIONSTR | grep -b -o '-' | awk 'BEGIN {FS=":"}{print $1}' | bc`
 SNAPSHOTBEGIN=$((SNAPSHOTBEGIN - 25))
@@ -51,34 +50,16 @@ export https_proxy=
 if [ $1 == "buildRelease" ]
   then
     ./packageMonitor.sh release
-    docker build --no-cache=true -t $REGISTRY/$PROJECT/$SUBPROJECT:$RELEASEVERSION .
-    rm -rf hajp-monitor-deploy
-fi
-
-if [ $1 == "buildSnapshot" ]
-  then
-    ./packageMonitor.sh snapshot
-    docker build --no-cache=true -t $REGISTRY/$PROJECT/$SUBPROJECT:SNAPSHOT .
+    docker build --no-cache=true -t $REGISTRY/$PROJECT:$RELEASEVERSION .
     rm -rf hajp-monitor-deploy
 fi
 
 if [ $1 == "runRelease" ]
   then
-   	docker run -p 9000:9000 $REGISTRY/$PROJECT/$SUBPROJECT:$RELEASEVERSION
-fi
-
-if [ $1 == "runSnapshot" ]
-  then
-   	docker run -p 9000:9000 $REGISTRY/$PROJECT/$SUBPROJECT:SNAPSHOT
+   	docker run -p 9000:9000 $REGISTRY/$PROJECT:$RELEASEVERSION
 fi
 
 if [ $1 == "pushRelease" ]
   then
-    docker push $REGISTRY/$PROJECT/$SUBPROJECT:$RELEASEVERSION
+  docker push $REGISTRY/$PROJECT
 fi
-
-if [ $1 == "pushSnapshot" ]
-  then
-    docker push $REGISTRY/$PROJECT/$SUBPROJECT:SNAPSHOT
-fi
-

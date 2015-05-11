@@ -8,9 +8,6 @@ fi
 
 set -e
 
-USERNAME=artread
-PASSWD="\{DESede\}YNtyA/TMlbuQjz/BlYj9Pw=="
-
 VERSIONSTR=$(head -n 1 ../version.sbt)
 SNAPSHOTBEGIN=`echo $VERSIONSTR | grep -b -o '-' | awk 'BEGIN {FS=":"}{print $1}' | bc`
 SNAPSHOTBEGIN=$((SNAPSHOTBEGIN - 25))
@@ -38,8 +35,7 @@ else
   RELEASEVERSION=$VERSION
 fi
 
-RELEASEURL=https://arm.mo.ca.am.ericsson.se/artifactory/simple/proj-jnkserv-staging-local/com/ericsson/jenkinsci/hajp/hajp-monitor_2.11/$RELEASEVERSION/hajp-monitor_2.11-$RELEASEVERSION.zip
-SNAPSHOTURL=https://arm.mo.ca.am.ericsson.se/artifactory/simple/proj-jnkserv-dev-local/com/ericsson/jenkinsci/hajp/hajp-monitor_2.11/$SNAPSHOTVERSION/hajp-monitor_2.11-$SNAPSHOTVERSION.zip
+RELEASEURL=https://oss.sonatype.org/content/repositories/releases/com/ericsson/jenkinsci/hajp/hajp-monitor_2.11/$RELEASEVERSION/hajp-monitor_2.11-$RELEASEVERSION.zip
 
 rm -rf hajp-monitor-deploy
 
@@ -48,13 +44,7 @@ rm -rf hajp-monitor-deploy
 EXTRACTVERSION=$RELEASEVERSION
 if [ $1 == "release" ]
   then
-  wget --no-proxy -O hajp-monitor.zip --user=$USERNAME --password=$PASSWD $RELEASEURL
-fi
-
-if [ $1 == "snapshot" ]
-  then
-  wget --no-proxy -O hajp-monitor.zip --user=$USERNAME --password=$PASSWD $SNAPSHOTURL
-  EXTRACTVERSION=$SNAPSHOTVERSION
+  wget --no-proxy -O hajp-monitor.zip $RELEASEURL
 fi
 
 
