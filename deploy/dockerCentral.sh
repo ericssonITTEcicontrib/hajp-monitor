@@ -61,5 +61,7 @@ fi
 
 if [ $1 == "pushRelease" ]
   then
-  docker push $REGISTRY/$PROJECT
+  docker tag -f $REGISTRY/$PROJECT:$RELEASEVERSION $REGISTRY/$PROJECT:latest
+  docker push $REGISTRY/$PROJECT:$RELEASEVERSION
+  docker push $REGISTRY/$PROJECT:latest
 fi
